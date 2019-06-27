@@ -1,20 +1,23 @@
 float mutationRate = 0.01;    // Mutation rate
 int totalPopulation = 150;      // Total Population
 
-DNA[] population;             // Array to hold the current population
-ArrayList<DNA> matingPool;    // ArrayList which we will use for our "mating pool"
+DNAx[] population;             // Array to hold the current population
+ArrayList<DNAx> matingPool;    // ArrayList which we will use for our "mating pool"
 String target;                // Target phrase
 
 PFont f;
 
-void setup() {
+public void settings(){
   size(800, 200);
+}
+
+void setup() {
   target = "to be or not to be";
 
-  population = new DNA[totalPopulation];
+  population = new DNAx[totalPopulation];
 
   for (int i = 0; i < population.length; i++) {
-    population[i] = new DNA(target.length());
+    population[i] = new DNAx(target.length());
   }
   
   f = createFont("Courier",12,true);
@@ -25,7 +28,7 @@ void draw() {
     population[i].calcFitness(target);
   }
 
-  ArrayList<DNA> matingPool = new ArrayList<DNA>();  // ArrayList which we will use for our "mating pool"
+  ArrayList<DNAx> matingPool = new ArrayList<DNAx>();  // ArrayList which we will use for our "mating pool"
 
   for (int i = 0; i < population.length; i++) {
     int nnnn = int(population[i].fitness * 100);  // Arbitrary multiplier, we can also use monte carlo method
@@ -37,9 +40,9 @@ void draw() {
   for (int i = 0; i < population.length; i++) {
     int a = int(random(matingPool.size()));
     int b = int(random(matingPool.size()));
-    DNA partnerA = matingPool.get(a);
-    DNA partnerB = matingPool.get(b);
-    DNA child = partnerA.crossover(partnerB);
+    DNAx partnerA = matingPool.get(a);
+    DNAx partnerB = matingPool.get(b);
+    DNAx child = partnerA.crossover(partnerB);
     child.mutate(mutationRate);
     population[i] = child;
   }
